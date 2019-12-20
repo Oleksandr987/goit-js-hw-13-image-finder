@@ -67,7 +67,7 @@ function clearListItems() {
 
 refs.searchForm.addEventListener(
   'input',
-  debounce(searchFormSubmitHandler, 500),
+  debounce(searchFormSubmitHandler, 500)
 );
 
 refs.searchForm.addEventListener('keydown', event => {
