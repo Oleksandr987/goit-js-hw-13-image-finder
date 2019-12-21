@@ -20,13 +20,12 @@ function searchFormSubmitHandler(event) {
         clearListItems();
       } else {
         clearListItems();
-        const markup = buildPhotoCardMarkup(data);
-        insertPhotoCards(markup);
+        const markup = makePhotoMarkup(data);
+        insPhotoCards(markup);
       }
     })
     .catch(err => console.log(err));
 }
-
 function loadMoreBtnHandler(event) {
   event.preventDefault();
   const galleryHeight = refs.imagesList.offsetHeight;
@@ -38,8 +37,8 @@ function loadMoreBtnHandler(event) {
     searchService
       .fetchImages()
       .then(data => {
-        const markup = buildPhotoCardMarkup(data);
-        insertPhotoCards(markup);
+        const markup = makePhotoMarkup(data);
+        insPhotoCards(markup);
       })
       .then(
         setTimeout(() => {
@@ -52,28 +51,22 @@ function loadMoreBtnHandler(event) {
       );
   }
 }
-
-function buildPhotoCardMarkup(items) {
-  return photoCardTemplate(items);
-}
-
-function insertPhotoCards(items) {
-  refs.imagesList.insertAdjacentHTML('beforeend', items);
-}
-
 function clearListItems() {
   refs.imagesList.innerHTML = '';
 }
-
+function makePhotoMarkup(items) {
+  return photoCardTemplate(items);
+}
+function insPhotoCards(items) {
+  refs.imagesList.insertAdjacentHTML('beforeend', items);
+}
 refs.searchForm.addEventListener(
   'input',
   debounce(searchFormSubmitHandler, 500)
 );
-
 refs.searchForm.addEventListener('keydown', event => {
   if (event.code === 'Enter' || event.code === 'NumpadEnter') {
     event.preventDefault();
   }
 });
-
 refs.loadMoreBtn.addEventListener('click', loadMoreBtnHandler);
