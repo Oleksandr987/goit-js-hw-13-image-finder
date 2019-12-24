@@ -1,4 +1,3 @@
-export { refs };
 import searchService from './services/apiService';
 import { refs } from './utils/refs';
 import photoCardTemplate from './templates/photo-card.hbs';
@@ -62,7 +61,7 @@ function insPhotoCards(items) {
 }
 refs.searchForm.addEventListener(
   'input',
-  debounce(searchFormSubmitHandler, 500)
+  debounce(searchFormSubmitHandler, 500),
 );
 refs.searchForm.addEventListener('keydown', event => {
   if (event.code === 'Enter' || event.code === 'NumpadEnter') {

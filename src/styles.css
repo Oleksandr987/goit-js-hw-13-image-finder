@@ -17,6 +17,7 @@ body {
    * CSS image reference example.
    */
   background-image: url('images/bg-pattern.png');
+  text-align: center;
 }
 .gallery {
   list-style: none;
@@ -28,20 +29,39 @@ body {
   font-size: 20px;
   padding: 16px;
   border: none;
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 5px 5px 30px rgba(0, 100, 10, 0.5);
   outline: none;
   transition: box-shadow 200ms;
 }
 
 .input-field:focus {
-  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 30px rgba(0, 100, 10, 0.7);
+}
+
+.gallery {
+  list-style: none;
+}
+
+.input-field {
+  margin: 40px;
+  width: 600px;
+  font-size: 20px;
+  padding: 16px;
+  border: none;
+  box-shadow: 5px 5px 30px (0, 100, 10, 0.7);
+  outline: none;
+  transition: box-shadow 200ms;
+}
+
+.input-field:focus {
+  box-shadow: 10px 10px 30px rgba(0, 100, 10, 0.5);
 }
 
 .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 0 auto;
+  padding: 0;
 }
 
 .gallery-item {
@@ -54,26 +74,34 @@ body {
 }
 
 .load-more-btn {
-  margin: 40px;
-  padding: 10px 25px;
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+  padding: 15px 30px;
+  border: none;
+  box-shadow: 5px 5px 30px rgba(0, 100, 10, 0.7);
   background-color: white;
   color: balck;
   font-size: 20px;
+  outline: none;
   cursor: pointer;
+
 }
 
 .back-to-top {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   text-indent: -9999px;
   position: fixed;
   z-index: 999;
-  right: 50px;
-  bottom: 50px;
+  right: 160px;
+  bottom: 60px;
   background: #ffffff url(./images/baseline_arrow_upward_black_18dp.png) no-repeat center 43%;
-  border-radius: 40px;
-  box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  box-shadow: 5px 5px 30px rgba(0, 100, 10, 0.7);
+}
+
+.load-more-btn:active,
+.back-to-top:active {
+  transform: translate(1px, 1px);
 }
 
 .modal {
@@ -83,7 +111,7 @@ body {
   right: 0;
   bottom: 0;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 100, 10, 0.7);
 }
 
 .modal-image {
@@ -91,5 +119,5 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 70%;
+  max-width: 80%;
 }
