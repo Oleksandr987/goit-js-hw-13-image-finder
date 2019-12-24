@@ -1,10 +1,11 @@
 import searchService from './services/apiService';
 import { refs } from './utils/refs';
 import photoCardTemplate from './templates/photo-card.hbs';
+const debounce = require('lodash.debounce');
 import { pWarning, pNotice } from './utils/pnotify';
 import { messages } from './utils/messages';
 import 'regenerator-runtime/runtime';
-const debounce = require('lodash.debounce');
+
 function searchFormSubmitHandler(event) {
   event.preventDefault();
   const form = event.target;
@@ -19,12 +20,13 @@ function searchFormSubmitHandler(event) {
         clearListItems();
       } else {
         clearListItems();
-        const markup = makePhotoMarkup(data);
-        insPhotoCards(markup);
+        const markup = buildPhotoCardMarkup(data);
+        insertPhotoCards(markup);
       }
     })
     .catch(err => console.log(err));
 }
+
 function loadMoreBtnHandler(event) {
   event.preventDefault();
   const galleryHeight = refs.imagesList.offsetHeight;
@@ -36,36 +38,42 @@ function loadMoreBtnHandler(event) {
     searchService
       .fetchImages()
       .then(data => {
-        const markup = makePhotoMarkup(data);
-        insPhotoCards(markup);
+        const markup = buildPhotoCardMarkup(data);
+        insertPhotoCards(markup);
       })
       .then(
         setTimeout(() => {
-          window.scrollTo({
-            top: scrollingPoint,
+          window.scrollBy({
+            top: window.innerHeight,
             left: 0,
             behavior: 'smooth',
           });
-        }, 100),
+        }, 1000),
       );
   }
 }
+
+function buildPhotoCardMarkup(items) {
+  return photoCardTemplate(items);
+}
+
+function insertPhotoCards(items) {
+  refs.imagesList.insertAdjacentHTML('beforeend', items);
+}
+
 function clearListItems() {
   refs.imagesList.innerHTML = '';
 }
-function makePhotoMarkup(items) {
-  return photoCardTemplate(items);
-}
-function insPhotoCards(items) {
-  refs.imagesList.insertAdjacentHTML('beforeend', items);
-}
+
 refs.searchForm.addEventListener(
   'input',
   debounce(searchFormSubmitHandler, 500),
 );
+
 refs.searchForm.addEventListener('keydown', event => {
   if (event.code === 'Enter' || event.code === 'NumpadEnter') {
     event.preventDefault();
   }
 });
+
 refs.loadMoreBtn.addEventListener('click', loadMoreBtnHandler);
