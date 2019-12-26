@@ -29,6 +29,9 @@ function searchFormSubmitHandler(event) {
 
 function loadMoreBtnHandler(event) {
   event.preventDefault();
+  const galleryHeight = refs.galleryList.offsetHeight;
+  const formHeight = refs.searchForm.offsetHeight;
+  const scrollingPoint = galleryHeight + formHeight;
   if (searchService.searchQuery.length === 0) {
     pNotice(messages.warningNoInput);
   } else {
@@ -40,12 +43,12 @@ function loadMoreBtnHandler(event) {
       })
       .then(
         setTimeout(() => {
-          window.scrollBy({
-            top: window.innerHeight,
+          window.scrollTo({
+            top: scrollingPoint,
             left: 0,
             behavior: 'smooth',
           });
-        },10),
+        }, 100),
       );
   }
 }
