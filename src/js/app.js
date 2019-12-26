@@ -29,9 +29,6 @@ function searchFormSubmitHandler(event) {
 
 function loadMoreBtnHandler(event) {
   event.preventDefault();
-  const galleryHeight = refs.imagesList.offsetHeight;
-  const formHeight = refs.searchForm.offsetHeight;
-  const scrollingPoint = galleryHeight + formHeight;
   if (searchService.searchQuery.length === 0) {
     pNotice(messages.warningNoInput);
   } else {
@@ -48,7 +45,7 @@ function loadMoreBtnHandler(event) {
             left: 0,
             behavior: 'smooth',
           });
-        }, 1000),
+        },10),
       );
   }
 }
@@ -58,11 +55,11 @@ function buildPhotoCardMarkup(items) {
 }
 
 function insertPhotoCards(items) {
-  refs.imagesList.insertAdjacentHTML('beforeend', items);
+  refs.galleryList.insertAdjacentHTML('beforeend', items);
 }
 
 function clearListItems() {
-  refs.imagesList.innerHTML = '';
+  refs.galleryList.innerHTML = '';
 }
 
 refs.searchForm.addEventListener(
