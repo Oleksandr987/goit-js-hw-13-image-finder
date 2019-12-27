@@ -59,12 +59,12 @@ body {
   box-shadow: 10px 10px 30px rgba(0, 100, 10, 0.5);
 }
 
-.gallery {
+/* .gallery {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0;
-}
+} */
 
 .gallery-item {
   max-width: 30%;
