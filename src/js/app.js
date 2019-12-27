@@ -27,29 +27,33 @@ function searchFormSubmitHandler(event) {
     .catch(err => console.log(err));
 }
 
-function loadMoreBtnHandler(event) {
-  event.preventDefault();
-  const galleryHeight = refs.galleryList.offsetHeight;
-  const formHeight = refs.searchForm.offsetHeight;
-  const scrollingPoint = galleryHeight + formHeight;
+function loadMoreBtnHandler() {
   if (searchService.searchQuery.length === 0) {
-    pNotice(messages.warningNoInput);
+    pNotice(messages.warningMissingInput);
   } else {
-    searchService
-      .fetchImages()
-      .then(data => {
-        const markup = buildPhotoCardMarkup(data);
+    const loadMore = async () => {
+      try {
+        const images = await searchService.fetchImages();
+        const markup = buildPhotoCardMarkup(images);
         insertPhotoCards(markup);
-      })
-      .then(
-        setTimeout(() => {
-          window.scrollTo({
-            top: scrollingPoint,
-            left: 0,
-            behavior: 'smooth',
-          });
-        }, 100),
-      );
+        return images;
+      } catch (err) {
+        console.error(err);
+      }
+      return loadMore;
+    };
+    const promise = loadMore();
+    promise.then(() => {
+      const scroll =
+        window.innerHeight -
+        refs.searchForm.offsetHeight -
+        30;
+      window.scrollBy({
+        top: scroll,
+        left: 0,
+        behavior: 'smooth',
+      });
+    },);
   }
 }
 

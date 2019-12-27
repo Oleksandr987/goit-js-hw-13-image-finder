@@ -1,3 +1,4 @@
+  
 const baseUrl = 'https://pixabay.com/api/';
 
 export default {
